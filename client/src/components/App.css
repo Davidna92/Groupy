@@ -1,0 +1,12 @@
+html,
+body,
+
+.app {
+  height: 100vh;
+  background: rgb(56, 50, 61);
+  padding: 1em;
+}
+
+.form {
+    background: rgb(107, 102, 151);
+}
