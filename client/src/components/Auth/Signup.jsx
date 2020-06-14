@@ -30,7 +30,7 @@ class Signup extends React.Component {
       this.setState({ errors: errors.concat(error) });
       return false;
     } else if (!this.isPasswordValid(this.state)) {
-      error = { message: "Password is invalid" };
+      error = { message: "Password is invalid, must be at least 6 characters" };
       this.setState({ errors: errors.concat(error) });
       return false;
     } else {
@@ -85,6 +85,14 @@ class Signup extends React.Component {
     }
   };
 
+  handleInputError = (errors, inputName) => {
+    return errors.some(error => 
+      error.message.toLowerCase().includes(inputName)
+      ) 
+      ? 'error' 
+      : ''
+  }
+
   render() {
     const {
       username,
@@ -123,7 +131,7 @@ class Signup extends React.Component {
                 onChange={this.handleChange}
                 type="email"
                 value={email}
-                className={errors.some(error => error.message.toLowerCase().includes('email')) ? 'error' : ''}
+                className={this.handleInputError(errors, 'email')}
               />
 
               <Form.Input
@@ -135,6 +143,8 @@ class Signup extends React.Component {
                 onChange={this.handleChange}
                 type="password"
                 value={password}
+                className={this.handleInputError(errors, 'password')}
+
               />
               <Form.Input
                 fluid
@@ -145,6 +155,8 @@ class Signup extends React.Component {
                 onChange={this.handleChange}
                 type="password"
                 value={passwordConfirm}
+                className={this.handleInputError(errors, 'password')}
+
               />
               <Button
                 disabled={loading}
