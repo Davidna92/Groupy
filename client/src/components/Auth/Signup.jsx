@@ -1,4 +1,5 @@
 import React from "react";
+import md5 from "md5";
 import {
   Grid,
   Form,
@@ -19,6 +20,7 @@ class Signup extends React.Component {
     passwordConfirm: "",
     errors: [],
     loading: false,
+    usersRef: firebase.database().ref("users"),
   };
 
   isFormValid = () => {
@@ -73,8 +75,27 @@ class Signup extends React.Component {
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
         .then((createdUser) => {
           console.log(createdUser);
-          this.setState({ loading: false });
+          createdUser.user
+            .updateProfile({
+              displayName: this.state.username,
+              photoURL: `http://gravatar.com/avatar/${md5(
+                createdUser.user.email
+              )}?d=identicon`,
+            })
+            .then(() => {
+              this.saveUser(createdUser).then(() => {
+                console.log("User saved");
+              });
+            })
+            .catch((err) => {
+              console.error(err);
+              this.setState({
+                errors: this.state.errors.concat(err),
+                loading: false,
+              });
+            });
         })
+
         .catch((err) => {
           console.error(err);
           this.setState({
@@ -85,13 +106,20 @@ class Signup extends React.Component {
     }
   };
 
+  saveUser = createdUser => {
+    return this.state.usersRef.child(createdUser.user.uid).set({
+      name: createdUser.user.displayName,
+      avatar: createdUser.user.photoURL,
+    });
+  };
+
   handleInputError = (errors, inputName) => {
-    return errors.some(error => 
+    return errors.some((error) =>
       error.message.toLowerCase().includes(inputName)
-      ) 
-      ? 'error' 
-      : ''
-  }
+    )
+      ? "error"
+      : "";
+  };
 
   render() {
     const {
@@ -131,7 +159,7 @@ class Signup extends React.Component {
                 onChange={this.handleChange}
                 type="email"
                 value={email}
-                className={this.handleInputError(errors, 'email')}
+                className={this.handleInputError(errors, "email")}
               />
 
               <Form.Input
@@ -143,8 +171,7 @@ class Signup extends React.Component {
                 onChange={this.handleChange}
                 type="password"
                 value={password}
-                className={this.handleInputError(errors, 'password')}
-
+                className={this.handleInputError(errors, "password")}
               />
               <Form.Input
                 fluid
@@ -155,8 +182,7 @@ class Signup extends React.Component {
                 onChange={this.handleChange}
                 type="password"
                 value={passwordConfirm}
-                className={this.handleInputError(errors, 'password')}
-
+                className={this.handleInputError(errors, "password")}
               />
               <Button
                 disabled={loading}
