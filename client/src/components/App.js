@@ -1,12 +1,14 @@
 import React from 'react';
+import { Grid } from 'semantic-ui-react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      App
-    </div>
-  );
-}
+const App = () => (
+<Grid>
+  <ColorPanel/>
+  <SidePanel/>
+  <Messages/>
+  <MetaPanel/>
+</Grid>
+)
 
 export default App;
