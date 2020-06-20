@@ -7,6 +7,14 @@ import Login from "./components/Auth/Login";
 import Signup from "./components/Auth/Signup";
 import "semantic-ui-css/semantic.min.css";
 import firebase from "firebase/app";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import {composeWithDevTools} from "redux-devtools-extension";
+
+
+
+const store = createStore(() => {}, composeWithDevTools());
+
 
 class Root extends React.Component {
 componentDidMount(){
@@ -36,5 +44,7 @@ const RootWithAuth = withRouter(Root);
 
 
 
-ReactDOM.render(<Router><RootWithAuth /></Router>, document.getElementById("root"));
+ReactDOM.render(
+<Provider store={store}>
+<Router><RootWithAuth /></Router></Provider>, document.getElementById("root"));
 serviceWorker.unregister();
