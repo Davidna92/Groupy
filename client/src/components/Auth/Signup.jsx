@@ -66,14 +66,14 @@ class Signup extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault();
     if (this.isFormValid()) {
       this.setState({ errors: [], loading: true });
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
-        .then((createdUser) => {
+        .then(createdUser => {
           console.log(createdUser);
           createdUser.user
             .updateProfile({
