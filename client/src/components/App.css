@@ -7,7 +7,19 @@ body,
   padding: 1em;
 }
 
-/* .form {
-    background: rgb(107, 102, 151);
-} */
 
+
+.messages {
+  height: 440px;
+  overflow-y: scroll;
+}
+
+.message__form {
+  position: fixed !important;
+  bottom: 1em;
+  margin-left:  320px !important;
+  left: 0;
+  right: 1em;
+  z-index: 200;
+  
+}
