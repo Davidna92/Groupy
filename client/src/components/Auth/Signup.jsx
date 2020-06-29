@@ -134,8 +134,8 @@ class Signup extends React.Component {
     return (
       <Grid textAlign="center" verticalAlign="middle" className="app">
         <Grid.Column style={{ maxWidth: 450 }}>
-          <Header as="h1" icon color="orange" textAlign="center">
-            <Icon name="handshake outline" color="red" />
+          <Header as="h1" icon color="yellow" textAlign="center">
+            <Icon name="handshake outline" color="yellow" />
             Signup for Groupy
           </Header>
           <Form size="small" onSubmit={this.handleSubmit}>

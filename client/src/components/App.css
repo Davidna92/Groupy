@@ -3,10 +3,11 @@ body,
 
 .app {
   height: 100vh;
-  background: #150d5e;
+  background: #ff7b25;
   padding: 1em;
 }
 
-.form {
+/* .form {
     background: rgb(107, 102, 151);
-}
+} */
+
