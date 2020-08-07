@@ -12,7 +12,7 @@ const App = ({ currentUser, currentChannel, isPrivateChannel }) => (
     <ColorPanel />
     <SidePanel key={currentUser && currentUser.id} currentUser={currentUser} />
 
-    <Grid.Column style={{ marginLeft: 320 }}>
+    <Grid.Column width={6} style={{ marginLeft: 320 }}>
       <Messages
         key={currentChannel && currentChannel.id}
         currentChannel={currentChannel}
@@ -22,7 +22,7 @@ const App = ({ currentUser, currentChannel, isPrivateChannel }) => (
     </Grid.Column>
 
     <Grid.Column width={4}>
-      <MetaPanel />
+      <MetaPanel key={currentChannel && currentChannel.id }  isPrivateChannel={isPrivateChannel}/>
     </Grid.Column>
   </Grid>
 );
