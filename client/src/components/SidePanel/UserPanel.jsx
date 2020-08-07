@@ -49,12 +49,12 @@ const { user } = this.state;
 
 
     return (
-      <Grid style={{ background: "#57575e" }}>
+      <Grid style={{ background: "#013d87" }}>
         <Grid.Column>
           <Grid.Row style={{ padding: "0.7em", margin: 0}}>
             <Header inverted floated="left" as="h2">
-              <Icon name="handshake outline"  />
-              <Header.Content className="text-center" style={{ color: 'yellow'}}>Groupy</Header.Content>
+              <Icon name="handshake outline" style={{color: "orange"}} />
+              <Header.Content className="text-center" style={{ color: 'orange'}}>Groupy</Header.Content>
             </Header>
           <Header style={{ padding: "0.25em" }} as="h4" inverted>
             <Dropdown
