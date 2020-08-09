@@ -4,6 +4,8 @@ import Message from "./Message";
 import MessagesHeader from "./MessagesHeader";
 import MessageForm from "./MessageForm";
 import firebase from "../../firebase";
+import { connect } from "react-redux";
+import { setUserPosts } from "../../actions";
 
 class Messages extends React.Component {
   state = {
@@ -36,17 +38,17 @@ class Messages extends React.Component {
 
   addUserFavListener = (channelId, userId) => {
     this.state.usersRef
-    .child(userId)
-    .child('favorites')
-    .once('value')
-    .then(data => {
-      if (data.val() !== null){
-        const channelIds = Object.keys(data.val());
-        const prevFavorite = channelIds.includes(channelId);
-        this.setState({isChannelFavorite: prevFavorite});
-      }
-    })
-  }
+      .child(userId)
+      .child("favorites")
+      .once("value")
+      .then((data) => {
+        if (data.val() !== null) {
+          const channelIds = Object.keys(data.val());
+          const prevFavorite = channelIds.includes(channelId);
+          this.setState({ isChannelFavorite: prevFavorite });
+        }
+      });
+  };
 
   addMessageListener = (channelId) => {
     let loadedMessages = [];
@@ -59,6 +61,7 @@ class Messages extends React.Component {
         messegesLoading: false,
       });
       this.countUniquUsers(loadedMessages);
+      this.countUserPost(loadedMessages);
     });
   };
 
@@ -154,6 +157,21 @@ class Messages extends React.Component {
     }
   };
 
+  countUserPost = (messages) => {
+    let userPosts = messages.reduce((acc, message) => {
+      if (message.user.name in acc) {
+        acc[message.user.name].count += 1;
+      } else {
+        acc[message.user.name] = {
+          avatar: message.user.avatar,
+          count: 1,
+        };
+      }
+      return acc;
+    }, {});
+    this.props.setUserPosts(userPosts);
+  };
+
   render() {
     const {
       messagesRef,
@@ -198,4 +216,4 @@ class Messages extends React.Component {
   }
 }
 
-export default Messages;
+export default connect(null, { setUserPosts })(Messages);
