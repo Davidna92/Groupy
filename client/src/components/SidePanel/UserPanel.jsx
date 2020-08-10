@@ -129,16 +129,16 @@ class UserPanel extends React.Component {
 
   render() {
     const { user, modal, previewImage, croppedImage } = this.state;
-
+    const { primaryColor } = this.props;
     return (
-      <Grid style={{ background: "#013d87" }}>
+      <Grid style={{ background: primaryColor }}>
         <Grid.Column>
           <Grid.Row style={{ padding: "0.7em", margin: 0 }}>
             <Header inverted floated="left" as="h2">
-              <Icon name="handshake outline" style={{ color: "orange" }} />
+              <Icon name="handshake outline" style={{ color: "yellow" }} />
               <Header.Content
                 className="text-center"
-                style={{ color: "orange" }}
+                style={{ color: "yellow" }}
               >
                 Groupy
               </Header.Content>

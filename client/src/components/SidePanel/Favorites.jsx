@@ -18,6 +18,14 @@ class Favorites extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.removeListeners();
+  }
+
+  removeListeners = () => {
+    this.state.usersRef.child(`${this.state.user.uid}/favorites`).off();
+  };
+
   addListeners = (userId) => {
     this.state.usersRef
       .child(userId)
@@ -25,19 +33,21 @@ class Favorites extends Component {
       .on("child_added", (snap) => {
         const favoriteChannel = { id: snap.key, ...snap.val() };
         this.setState({
-          favoriteChannels: [...this.state.favoriteChannels, favoriteChannel]
+          favoriteChannels: [...this.state.favoriteChannels, favoriteChannel],
         });
       });
-      this.state.usersRef
+    this.state.usersRef
       .child(userId)
-      .child('favorites')
-      .on('child_removed', snap => {
-        const channelIdRemove = {id: snap.key, ...snap.val()};
-        const filteredChannels = this.state.favoriteChannels.filter(channel => {
-          return channel.id !== channelIdRemove.id;
-        });
-        this.setState({favoriteChannels: filteredChannels});
-      })
+      .child("favorites")
+      .on("child_removed", (snap) => {
+        const channelIdRemove = { id: snap.key, ...snap.val() };
+        const filteredChannels = this.state.favoriteChannels.filter(
+          (channel) => {
+            return channel.id !== channelIdRemove.id;
+          }
+        );
+        this.setState({ favoriteChannels: filteredChannels });
+      });
   };
 
   setActiveChannel = (channel) => {

@@ -70,8 +70,8 @@ class Login extends React.Component {
     return (
       <Grid textAlign="center" verticalAlign="middle" className="app">
         <Grid.Column style={{ maxWidth: 450 }}>
-          <Header as="h1" icon color="blue" textAlign="center">
-            <Icon name="handshake outline" color="blue" />
+          <Header as="h1" icon color="yellow" textAlign="center">
+            <Icon name="handshake outline"/>
             Login to Groupy
           </Header>
           <Form size="small" onSubmit={this.handleSubmit}>
