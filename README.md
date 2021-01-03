@@ -10,5 +10,5 @@ Slack like application with user authentication, file uploads and private rooms 
 
 
 
-Try it 
+Try it here:
 https://groupy-519a9.web.app
